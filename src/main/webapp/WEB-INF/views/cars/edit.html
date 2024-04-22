@@ -10,7 +10,11 @@
         <form th:method="PATCH" th:action="@{/cars/{id}/edit (id = *{id})}" th:object="${car}">
 
             <label for="title">Title</label><br>
-            <input type="text" id="title" th:field="*{title}"><br><br>
+            <input type="text" id="title" th:field="*{title}">
+            <th:block th:if="${#fields.hasErrors('title')}">
+                <span th:errors="*{title}" style="color: red">Title Field Errors</span>
+            </th:block>
+            <br><br>
 
             <label for="brand">Brand</label><br>
             <select th:field="*{brandId}" id="brand">

@@ -1,6 +1,5 @@
 package com.burgas.springbrandcars.model;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -22,8 +21,5 @@ public class Car {
     private String image;
     private String webpage;
     private String description;
-
-    @NotEmpty(message = "This field can't be empty")
-    @Min(0)
     private int price;
 }
