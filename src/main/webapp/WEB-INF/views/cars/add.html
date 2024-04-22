@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Car</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="text-align: center; margin-top: 7%">
+        <form th:method="POST" th:action="@{/cars/add}" th:object="${car}">
+
+            <label for="title">Title</label><br>
+            <input type="text" id="title" th:field="*{title}">
+            <th:block th:if="${#fields.hasErrors('title')}">
+                <span th:errors="*{title}" style="color: red">Car Field Errors</span>
+            </th:block>
+
+            <label for="brand">Brand</label><br>
+            <select th:field="*{brandId}" id="brand">
+                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
+            </select><br><br>
+
+            <label for="category">Category</label><br>
+            <select th:field="*{categoryId}" id="category">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select><br><br>
+
+            <label for="image">Image</label><br>
+            <input type="url" id="image" th:field="*{image}"><br><br>
+
+            <label for="webpage">Webpage</label><br>
+            <input type="url" id="webpage" th:field="*{webpage}"><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea th:field="*{description}" id="description" cols="40" rows="5"></textarea><br><br>
+
+            <label for="price">Price</label><br>
+            <input type="number" id="price" th:field="*{price}"><br><br>
+
+            <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </form>
+    </div>
+</body>
+</html>
