@@ -58,6 +58,6 @@ public class CarDao {
                 "join public.categories c on c.id = cars.category_id\n" +
                 "join public.cars_tags ct on cars.id = ct.car_id\n" +
                 "join public.tags t on t.id = ct.tag_id\n" +
-                "where concat(cars.title,' ',cars.price,' ',b.title,' ',c.name,' ',t.name,' ') like '%"+search+"%'", new CarRowMapper());
+                "where concat(cars.title,' ',cars.price,' ',b.title,' ',c.name,' ',t.name,' ') ilike '%"+search+"%'", new CarRowMapper());
     }
 }

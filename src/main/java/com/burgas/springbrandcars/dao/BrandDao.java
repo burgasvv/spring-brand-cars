@@ -44,7 +44,7 @@ public class BrandDao {
 
     public List<Brand> search(String search) {
         //noinspection SqlSourceToSinkFlow
-        return jdbcTemplate.query("select * from brands where concat(title,' ') like '%"+search+"%'",
+        return jdbcTemplate.query("select * from brands where concat(title,' ') ilike '%"+search+"%'",
                 new BrandRowMapper()
         );
     }
