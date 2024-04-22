@@ -12,6 +12,11 @@
         <form method="get" action="cars/search" style="display: inline-flex; margin-left: 10px">
             <label for="search"></label>
             <input type="text" id="search" name="search">
+            <label for="select"></label>
+            <select name="select" id="select" style="margin-left: 10px">
+                <option value="Cars">Cars</option>
+                <option value="Brands">Brands</option>
+            </select>
             <input type="submit" value="Search" style="margin-left: 10px; color: black">
         </form>
     </div>

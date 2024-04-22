@@ -117,12 +117,17 @@ public class CarController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("search") String search, Model model) {
+    public String search(@RequestParam("search") String search, @RequestParam("select") String select ,Model model) {
         model.addAttribute("cars", carDao.searchFull(search)
                 .stream().distinct().collect(Collectors.toList())
         );
+        model.addAttribute("searchBrands", brandDao.search(search));
         model.addAttribute("search", search);
         model.addAttribute("brands", brandDao.findAll());
-        return "cars/search";
+
+        if (select.equals("Cars"))
+            return "cars/search";
+        else
+            return "brands/search";
     }
 }

@@ -41,4 +41,11 @@ public class BrandDao {
     public void delete(Brand brand) {
         jdbcTemplate.update("delete from brands where id=?", brand.getId());
     }
+
+    public List<Brand> search(String search) {
+        //noinspection SqlSourceToSinkFlow
+        return jdbcTemplate.query("select * from brands where concat(title,' ') like '%"+search+"%'",
+                new BrandRowMapper()
+        );
+    }
 }
