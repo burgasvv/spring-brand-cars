@@ -17,7 +17,7 @@
             <br><br>
 
             <label for="brand">Brand</label><br>
-            <select th:field="*{brandId}" id="brand">
+            <select size="1" th:field="*{brandId}" id="brand" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                 <option th:each="brand : ${brands}" th:value="${brand.id}"
                         th:text="${brand.title}" th:selected="${car.brandId eq brand.id}">Brand</option>
             </select><br><br>

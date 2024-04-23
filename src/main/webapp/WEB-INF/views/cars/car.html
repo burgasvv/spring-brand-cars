@@ -6,16 +6,24 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin-left: 100px; margin-top: 50px; display: inline-flex" th:object="${car}">
+    <div style="margin-left: 100px; margin-top: 50px; margin-bottom: 50px; display: inline-flex" th:object="${car}">
 
         <div style="display: inline-block">
             <h1 th:text="*{title}">Title</h1>
             <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">
             <h2>
-                Class: <span th:text="${carClass.name.substring(0,7)}" style="font-weight: normal"/>
+                Class:
+                <a th:href="@{/classes/{id} (id = *{classId})}">
+                    <span th:text="${carClass.name.substring(0,7)}" style="font-weight: normal"/>
+                </a><br>
+                <a href="/classes" style="font-weight: normal; font-size: 12px; color: gray">All classes</a>
             </h2>
             <h2>
-                Category: <span th:text="${category.name}" style="font-weight: normal"/>
+                Category:
+                <a th:href="@{/categories/{id} (id = *{categoryId})}" >
+                    <span th:text="${category.name}" style="font-weight: normal"/>
+                </a><br>
+                <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray">All categories</a>
             </h2>
             <h2>
                 Brand: <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}" style="font-weight: normal">Brand</a>
