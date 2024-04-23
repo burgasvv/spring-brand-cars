@@ -27,16 +27,16 @@ public class CarDao {
     }
 
     public void save(Car car) {
-        jdbcTemplate.update("insert into cars(title, brand_id, category_id, image, webpage, description, price) " +
-                        "VALUES (?,?,?,?,?,?,?)",
-                car.getTitle(), car.getBrandId(), car.getCategoryId(),
+        jdbcTemplate.update("insert into cars(title, brand_id, class_id, category_id, image, webpage, description, price) " +
+                        "VALUES (?,?,?,?,?,?,?,?)",
+                car.getTitle(), car.getBrandId(), car.getClassId(), car.getCategoryId(),
                 car.getImage(), car.getWebpage(), car.getDescription(), car.getPrice()
         );
     }
 
     public void update(Car car) {
-        jdbcTemplate.update("update cars set title=?,brand_id=?,category_id=?,image=?,webpage=?,description=?,price=? where id=?",
-                car.getTitle(), car.getBrandId(), car.getCategoryId(),
+        jdbcTemplate.update("update cars set title=?,brand_id=?,class_id=?,category_id=?,image=?,webpage=?,description=?,price=? where id=?",
+                car.getTitle(), car.getBrandId(), car.getClassId(), car.getCategoryId(),
                 car.getImage(), car.getWebpage(), car.getDescription(), car.getPrice(), car.getId()
         );
     }
@@ -58,6 +58,8 @@ public class CarDao {
                 "join public.categories c on c.id = cars.category_id\n" +
                 "join public.cars_tags ct on cars.id = ct.car_id\n" +
                 "join public.tags t on t.id = ct.tag_id\n" +
-                "where concat(cars.title,' ',cars.price,' ',b.title,' ',c.name,' ',t.name,' ') ilike '%"+search+"%'", new CarRowMapper());
+                "join public.classes c2 on c2.id = cars.class_id\n" +
+                "where concat(cars.title,' ',cars.price,' ',b.title,' ',c.name,' ',c2.name,' ',t.name,' ') ilike '%"+search+"%'",
+                new CarRowMapper());
     }
 }

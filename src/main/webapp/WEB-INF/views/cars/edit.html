@@ -22,6 +22,12 @@
                         th:text="${brand.title}" th:selected="${car.brandId eq brand.id}">Brand</option>
             </select><br><br>
 
+            <label for="class">Class</label><br>
+            <select th:field="*{classId}" id="class">
+                <option th:each="class : ${classes}" th:value="${class.id}"
+                        th:text="${class.name}" th:selected="${car.classId eq class.id}">Class</option>
+            </select><br><br>
+
             <label for="category">Category</label><br>
             <select th:field="*{categoryId}" id="category">
                 <option th:each="category : ${categories}" th:value="${category.id}"

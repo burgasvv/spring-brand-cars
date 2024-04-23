@@ -29,6 +29,10 @@ public class TagDao {
         );
     }
 
+    public Tag findByName(String name) {
+        return jdbcTemplate.queryForObject("select * from tags where name=?", new TagRowMapper(), name);
+    }
+
     public Tag find(int id) {
         return jdbcTemplate.queryForObject("select * from tags where id=?", new TagRowMapper(), id);
     }

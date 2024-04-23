@@ -5,7 +5,6 @@ import com.burgas.springbrandcars.model.Car;
 import com.burgas.springbrandcars.model.CarTag;
 import com.burgas.springbrandcars.model.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +21,16 @@ public class CarController {
     private final CategoryDao categoryDao;
     private final TagDao tagDao;
     private final CarTagDao carTagDao;
+    private final ClassDao classDao;
 
-    @Autowired
-    public CarController(CarDao carDao, BrandDao brandDao, CategoryDao categoryDao, TagDao tagDao, CarTagDao carTagDao) {
+    public CarController(CarDao carDao, BrandDao brandDao, CategoryDao categoryDao,
+                         TagDao tagDao, CarTagDao carTagDao, ClassDao classDao) {
         this.carDao = carDao;
         this.brandDao = brandDao;
         this.categoryDao = categoryDao;
         this.tagDao = tagDao;
         this.carTagDao = carTagDao;
+        this.classDao = classDao;
     }
 
     @GetMapping
@@ -44,6 +45,7 @@ public class CarController {
         Car car = carDao.find(id);
         model.addAttribute("car", car);
         model.addAttribute("brand", brandDao.find(car.getBrandId()));
+        model.addAttribute("carClass", classDao.find(car.getClassId()));
         model.addAttribute("category", categoryDao.find(car.getCategoryId()));
         model.addAttribute("tags", tagDao.findByCarId(car.getId()));
         model.addAttribute("allTags", tagDao.findAll());
@@ -56,6 +58,7 @@ public class CarController {
     public String addCarForm(Model model) {
         model.addAttribute("car", new Car());
         model.addAttribute("brands", brandDao.findAll());
+        model.addAttribute("classes", classDao.findAll());
         model.addAttribute("categories", categoryDao.findAll());
         return "cars/add";
     }
@@ -74,6 +77,7 @@ public class CarController {
         Car car = carDao.find(id);
         model.addAttribute("car", car);
         model.addAttribute("brands", brandDao.findAll());
+        model.addAttribute("classes", classDao.findAll());
         model.addAttribute("categories", categoryDao.findAll());
         return "cars/edit";
     }
@@ -112,22 +116,18 @@ public class CarController {
     @PostMapping("/{id}/addTag")
     public String addTag(@PathVariable("id") int carId, @ModelAttribute("newTag") Tag tag) {
         tagDao.save(tag);
-//        carTagDao.save(new CarTag(carId, tagDao.findAll().getLast().getId()));
+        carTagDao.save(new CarTag(carId, tagDao.findByName(tag.getName()).getId()));
         return "redirect:/cars/{id}";
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("search") String search, @RequestParam("select") String select ,Model model) {
+    public String search(@RequestParam("search") String search ,Model model) {
         model.addAttribute("cars", carDao.searchFull(search)
                 .stream().distinct().collect(Collectors.toList())
         );
         model.addAttribute("searchBrands", brandDao.search(search));
         model.addAttribute("search", search);
         model.addAttribute("brands", brandDao.findAll());
-
-        if (select.equals("Cars"))
-            return "cars/search";
-        else
-            return "brands/search";
+        return "cars/search";
     }
 }

@@ -17,6 +17,7 @@ public class Car {
     @NotEmpty(message = "This field can't be empty")
     private String title;
     private int brandId;
+    private int classId;
     private int categoryId;
     private String image;
     private String webpage;

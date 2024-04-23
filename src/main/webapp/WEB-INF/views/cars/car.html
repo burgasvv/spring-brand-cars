@@ -12,6 +12,9 @@
             <h1 th:text="*{title}">Title</h1>
             <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">
             <h2>
+                Class: <span th:text="${carClass.name.substring(0,7)}" style="font-weight: normal"/>
+            </h2>
+            <h2>
                 Category: <span th:text="${category.name}" style="font-weight: normal"/>
             </h2>
             <h2>
@@ -41,7 +44,7 @@
                 <form th:method="POST" th:action="@{/cars/{id}/addTag (id = *{id})}" style="margin-left: 20px">
                     <label for="tag">New Tag</label><br>
                     <input type="text" id="tag" th:field="${newTag.name}"><br><br>
-                    <input type="submit" value="Add Tag" style="color: black">
+                    <input type="submit" value="Add and Attach" style="color: black">
                 </form>
             </div>
             <br><br>

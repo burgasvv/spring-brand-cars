@@ -17,6 +17,7 @@ public class CarRowMapper implements RowMapper<Car> {
                 resultSet.getInt("id"),
                 resultSet.getString("title"),
                 resultSet.getInt("brand_id"),
+                resultSet.getInt("class_id"),
                 resultSet.getInt("category_id"),
                 resultSet.getString("image"),
                 resultSet.getString("webpage"),
