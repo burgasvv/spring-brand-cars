@@ -27,11 +27,12 @@ public class CategoryDao {
     }
 
     public void save(Category category) {
-        jdbcTemplate.update("insert into categories(name) values (?)", category.getName());
+        jdbcTemplate.update("insert into categories(name, image, description) values (?,?,?)", category.getName());
     }
 
     public void update(Category category) {
-        jdbcTemplate.update("update categories set name=? where id=?", category.getName(), category.getId());
+        jdbcTemplate.update("update categories set name=?, image=?,description=? where id=?",
+                category.getName(), category.getImage(), category.getDescription(), category.getId());
     }
 
     public void delete(Category category) {
