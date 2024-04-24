@@ -44,7 +44,7 @@
             <div style="display: inline-flex">
                 <form th:method="POST" th:action="@{/cars/{id}/attachTag (id = *{id})}">
                     <label for="tags">Ready Tags</label><br>
-                    <select size="1" th:field="${carTag.tagId}" id="tags" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+                    <select th:field="${carTag.tagId}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                         <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                     </select><br><br>
                     <input type="submit" value="Attach Tag" style="color: black">
