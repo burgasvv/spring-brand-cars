@@ -4,11 +4,11 @@ import com.burgas.springbrandcars.mapper.CarTagRowMapper;
 import com.burgas.springbrandcars.model.CarTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Controller
+@Component
 public class CarTagDao {
 
     private final JdbcTemplate jdbcTemplate;
